@@ -102,7 +102,9 @@ const Navbar = () => {
                   key={item.href}
                   href={item.href}
                   onClick={() => setMobileOpen(false)}
-                  className="text-base font-medium text-muted-foreground hover:text-primary transition-colors"
+                  className={`text-base font-medium transition-colors ${
+                    activeSection === item.href.slice(1) ? "text-primary" : "text-muted-foreground hover:text-primary"
+                  }`}
                 >
                   {item.label}
                 </a>
