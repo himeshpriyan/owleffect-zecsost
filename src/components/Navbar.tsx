@@ -10,13 +10,26 @@ const navItems = [
   { label: "Contact", href: "#contact" },
 ];
 
+const sectionIds = navItems.map((item) => item.href.slice(1));
+
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState("home");
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 50);
-    window.addEventListener("scroll", onScroll);
+    const onScroll = () => {
+      setScrolled(window.scrollY > 50);
+
+      const offsets = sectionIds.map((id) => {
+        const el = document.getElementById(id);
+        return { id, top: el ? el.offsetTop - 120 : 0 };
+      });
+
+      const current = offsets.filter((s) => window.scrollY >= s.top).pop();
+      if (current) setActiveSection(current.id);
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
@@ -41,9 +54,20 @@ const Navbar = () => {
             <a
               key={item.href}
               href={item.href}
-              className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors duration-200"
+              className={`text-sm font-medium transition-colors duration-200 ${
+                activeSection === item.href.slice(1)
+                  ? "text-primary"
+                  : "text-muted-foreground hover:text-primary"
+              }`}
             >
               {item.label}
+              {activeSection === item.href.slice(1) && (
+                <motion.div
+                  layoutId="nav-underline"
+                  className="h-0.5 mt-0.5 rounded-full bg-primary"
+                  transition={{ type: "spring", stiffness: 500, damping: 30 }}
+                />
+              )}
             </a>
           ))}
           <a
@@ -78,7 +102,9 @@ const Navbar = () => {
                   key={item.href}
                   href={item.href}
                   onClick={() => setMobileOpen(false)}
-                  className="text-base font-medium text-muted-foreground hover:text-primary transition-colors"
+                  className={`text-base font-medium transition-colors ${
+                    activeSection === item.href.slice(1) ? "text-primary" : "text-muted-foreground hover:text-primary"
+                  }`}
                 >
                   {item.label}
                 </a>
