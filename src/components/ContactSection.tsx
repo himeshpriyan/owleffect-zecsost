@@ -3,14 +3,14 @@ import { Phone, Mail, Send } from "lucide-react";
 
 const ContactSection = () => {
   return (
-    <section id="contact" className="py-24 md:py-32 px-6 bg-card/50">
+    <section id="contact" className="relative py-16 md:py-24 px-6 bg-secondary/20 dark:bg-card/50">
       <div className="max-w-4xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="text-center mb-12"
         >
           <p className="text-primary text-sm font-semibold tracking-[0.3em] uppercase mb-3">
             Let's Connect
@@ -36,7 +36,7 @@ const ContactSection = () => {
             <div className="space-y-4">
               <a
                 href="tel:8148111530"
-                className="flex items-center gap-4 p-4 rounded-xl bg-card border border-border hover:border-glow transition-all group"
+                className="flex items-center gap-4 p-4 rounded-xl dark:bg-card bg-card border border-primary/10 dark:border-border hover:border-primary/40 transition-all group shadow-sm dark:shadow-none hover:shadow-md"
               >
                 <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
                   <Phone className="w-5 h-5 text-primary" />
@@ -49,7 +49,7 @@ const ContactSection = () => {
 
               <a
                 href="mailto:theowlcreationss@gmail.com"
-                className="flex items-center gap-4 p-4 rounded-xl bg-card border border-border hover:border-glow transition-all group"
+                className="flex items-center gap-4 p-4 rounded-xl dark:bg-card bg-card border border-primary/10 dark:border-border hover:border-primary/40 transition-all group shadow-sm dark:shadow-none hover:shadow-md"
               >
                 <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
                   <Mail className="w-5 h-5 text-primary" />
@@ -74,17 +74,17 @@ const ContactSection = () => {
             <input
               type="text"
               placeholder="Your Name"
-              className="w-full px-4 py-3 rounded-xl bg-card border border-border text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors font-body"
+              className="w-full px-4 py-3 rounded-xl bg-card border border-primary/10 dark:border-border text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors font-body"
             />
             <input
               type="email"
               placeholder="Your Email"
-              className="w-full px-4 py-3 rounded-xl bg-card border border-border text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors font-body"
+              className="w-full px-4 py-3 rounded-xl bg-card border border-primary/10 dark:border-border text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors font-body"
             />
             <textarea
               placeholder="Your Message"
               rows={4}
-              className="w-full px-4 py-3 rounded-xl bg-card border border-border text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors font-body resize-none"
+              className="w-full px-4 py-3 rounded-xl bg-card border border-primary/10 dark:border-border text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors font-body resize-none"
             />
             <button
               type="submit"
@@ -96,6 +96,34 @@ const ContactSection = () => {
           </form>
         </motion.div>
       </div>
+
+      {/* Map Placeholder */}
+      <motion.div
+        initial={{ opacity: 0, scale: 0.95 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        viewport={{ once: true }}
+        transition={{ delay: 0.3, duration: 0.8 }}
+        className="max-w-6xl mx-auto mt-12"
+      >
+        <div className="w-full h-[400px] rounded-[2.5rem] dark:bg-card bg-card border border-primary/10 dark:border-border relative overflow-hidden group shadow-lg dark:shadow-none">
+          <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?q=80&w=2666&auto=format&fit=crop')] bg-cover bg-center opacity-40 grayscale group-hover:grayscale-0 transition-all duration-1000" />
+          <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="p-8 rounded-3xl bg-background/80 backdrop-blur-md border border-primary/20 text-center max-w-xs transition-transform group-hover:scale-105 duration-500">
+              <h4 className="font-display font-bold text-xl mb-2">Global Headquarters</h4>
+              <p className="text-sm text-muted-foreground mb-4">India — Serving clients worldwide with cinematic vision.</p>
+              <a 
+                href="https://wa.me/918148111530" 
+                target="_blank" 
+                rel="noreferrer"
+                className="inline-flex items-center gap-2 text-primary font-bold hover:underline"
+              >
+                Chat on WhatsApp →
+              </a>
+            </div>
+          </div>
+        </div>
+      </motion.div>
     </section>
   );
 };
