@@ -1,15 +1,19 @@
 import { motion, useScroll, useTransform } from "framer-motion";
-import flyingOwl from "@/assets/flying-owl.png";
+
+// ⬇️ Place your 8-second owl video in src/assets/ and update this import path
+import owlVideo from "@/assets/owl-scroll-video.mp4";
 
 const ScrollOwl = () => {
   const { scrollYProgress } = useScroll();
 
-  // Stable Parallax: Only vertical movement, no shaking or tilting.
-  // The owl drifts slowly across the page depths.
-  const y = useTransform(scrollYProgress, [0, 1], ["0%", "20%"]);
-  
-  // Fade in at the start, stay constant, fade out at the very end.
-  const opacity = useTransform(scrollYProgress, [0, 0.1, 0.9, 1], [0, 0.12, 0.12, 0]);
+  // Parallax vertical drift as user scrolls
+  const y = useTransform(scrollYProgress, [0, 1], ["10%", "-10%"]);
+
+  // Fade in as user scrolls, stay visible, fade out at end
+  const opacity = useTransform(scrollYProgress, [0, 0.08, 0.85, 1], [0, 0.1, 0.1, 0]);
+
+  // Subtle scale-up as user scrolls for dramatic reveal
+  const scale = useTransform(scrollYProgress, [0, 0.15, 0.85, 1], [0.9, 1.05, 1.05, 0.95]);
 
   return (
     <div className="fixed inset-0 pointer-events-none z-[-1] overflow-hidden flex items-center justify-center">
@@ -17,19 +21,22 @@ const ScrollOwl = () => {
         style={{
           y,
           opacity,
+          scale,
         }}
-        // Responsive sizing: Smaller on mobile, larger on desktop
-        className="relative w-[300px] h-[300px] sm:w-[500px] sm:h-[500px] md:w-[800px] md:h-[800px]"
+        className="relative w-[350px] h-[350px] sm:w-[550px] sm:h-[550px] md:w-[850px] md:h-[850px]"
       >
-        <img
-          src={flyingOwl}
-          alt=""
+        <video
+          src={owlVideo}
+          autoPlay
+          muted
+          loop
+          playsInline
           style={{
-            // Soften the edges to prevent any "box" from being visible
-            WebkitMaskImage: "radial-gradient(circle, black 30%, transparent 80%)",
-            maskImage: "radial-gradient(circle, black 30%, transparent 80%)"
+            WebkitMaskImage: "radial-gradient(circle, black 40%, transparent 75%)",
+            maskImage: "radial-gradient(circle, black 40%, transparent 75%)",
+            filter: "brightness(1.4)",
           }}
-          className="w-full h-full object-contain mix-blend-screen grayscale brightness-110"
+          className="w-full h-full object-contain"
         />
       </motion.div>
     </div>
