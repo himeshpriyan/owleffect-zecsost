@@ -20,7 +20,7 @@ const OwlBackground = () => {
   return (
     <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
       {/* 1. Main Static Logo (Top of page) */}
-      <motion.div 
+      <motion.div
         style={{ opacity: logoOpacity }}
         className="absolute inset-0 flex items-center justify-center"
       >
